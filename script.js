@@ -1,7 +1,8 @@
 const journalTitle = document.getElementById("title");
 const journalText = document.getElementById("text");
 const form = document.getElementById("new-post-form");
-const journalContainer = document.getElementById("journal-container")
+const journalContainer = document.getElementById("journal-container");
+const journalEntryTemplate = document.getElementById("journal-entry");
 
 //checks if journal list exists, returns empty array if no object
 let journalList = JSON.parse(localStorage.getItem("journalList")) || [];
@@ -15,50 +16,23 @@ function updateView() {
   const fragment = new DocumentFragment();
 
   for (let entry of journalList) {
-    const newEntry = document.createElement("li");
-    newEntry.dataset.id = entry.id;
-    newEntry.className = "journal-entry";
+    //creates a clone of html template for blog layout
+    console.log(entry);
+    const newEntry = journalEntryTemplate.content.cloneNode(true);
 
-    //journal title
-    const entryTitle = document.createElement("h2");
-    entryTitle.className = "journal-title";
-    entryTitle.textContent = entry.title;
+    //sets dataset item for card id
+    newEntry.querySelector(".journal-entry").dataset.id = entry.id;
 
-    //journal date
-    const entryDate = document.createElement("time");
-    entryDate.datetime = entry.date;
-    entryDate.textContent = entry.date;
 
-    //journal text
-    const entryText = document.createElement("p");
-    entryText.className = "journal-text";
-    entryText.textContent = entry.text;
+    //creates the visible text elements
+    newEntry.querySelector(".journal-title").textContent = entry.title;
+    newEntry.querySelector(".journal-date").dateTime = entry.date;
+    newEntry.querySelector(".journal-date").textContent = entry.date;
+    newEntry.querySelector(".journal-text").textContent = entry.text;
 
-    //button div
-    const buttonDiv = document.createElement("div");
-    buttonDiv.className = "journal-button-div";
-
-    //edit button
-    const editButton = document.createElement("button");
-    editButton.className = "edit-button";
-    editButton.textContent = "Edit";
-
-    //delete button
-    const deleteButton = document.createElement("button");
-    deleteButton.className = "delete-button";
-    deleteButton.textContent = "Delete";
-
-    //button div appends
-    buttonDiv.appendChild(editButton);
-    buttonDiv.appendChild(deleteButton);
-
-    //entry appends
-    newEntry.appendChild(entryTitle);
-    newEntry.appendChild(entryDate);
-    newEntry.appendChild(entryText);
-    newEntry.appendChild(buttonDiv);
     fragment.appendChild(newEntry);
   }
+
   journalContainer.appendChild(fragment);
 }
 
@@ -90,6 +64,5 @@ form.addEventListener("submit", (event) => {
 
   idCounter++;
   journalList.push(newEntry);
-  console.log(journalList);
   updateView();
 });
