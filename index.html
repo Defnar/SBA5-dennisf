@@ -14,12 +14,12 @@
     <form id="new-post-form" novalidate>
       <div class="input-section">
         <label for="title">Title: </label>
-        <input type="text" id="title" name="title" required/>
+        <input type="text" id="title" name="title" maxlength="25" required/>
         <span id="title-error"></span>
       </div>
       <div class="input-section" id="journal-entry-section">
-        <label for="entry">Journal Entry: </label>
-        <textarea id="entry" name="entry" required placeholder="today I..."></textarea>
+        <label for="text">Journal Text: </label>
+        <textarea id="text" name="text" required placeholder="today I..."></textarea>
         <span id="journal-error"></span>
       </div>
       <button type="submit" id="post-button">Post</button>
