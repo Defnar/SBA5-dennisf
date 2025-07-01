@@ -20,7 +20,6 @@ updateView();
 function saveData() {
   localStorage.setItem("journalList", JSON.stringify(journalList));
   localStorage.setItem("idCounter", idCounter);
-  console.log(journalList);
 }
 
 //updates journal section based on joural list
