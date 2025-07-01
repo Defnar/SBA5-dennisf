@@ -14,20 +14,25 @@
     <form id="new-post-form" novalidate>
       <div class="input-section">
         <label for="title">Title: </label>
-        <input type="text" id="title" name="title" maxlength="25" required/>
+        <input type="text" id="title" name="title" maxlength="25" required />
         <span id="title-error"></span>
       </div>
       <div class="input-section" id="journal-entry-section">
         <label for="text">Journal Text: </label>
-        <textarea id="text" name="text" required placeholder="today I..."></textarea>
+        <textarea
+          id="text"
+          name="text"
+          required
+          placeholder="today I..."
+        ></textarea>
         <span id="journal-error"></span>
       </div>
       <button type="submit" id="post-button">Post</button>
     </form>
-    <ul id="journal-container">
-
+    <ul id="journal-container"></ul>
+    <div class="templates">
       <template id="journal-entry">
-        <li class="journal-entry" >
+        <li class="journal-entry">
           <h2 class="journal-title"></h2>
           <time class="journal-date"></time>
           <p class="journal-text"></p>
@@ -42,9 +47,6 @@
         <button class="save-button">Save</button>
         <button class="cancel-button">Cancel</button>
       </template>
-
-
-
-    </ul>
+    </div>
   </body>
 </html>
