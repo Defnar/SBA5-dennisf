@@ -3,6 +3,8 @@ const journalText = document.getElementById("text");
 const form = document.getElementById("new-post-form");
 const journalContainer = document.getElementById("journal-container");
 const journalEntryTemplate = document.getElementById("journal-entry");
+const editDelTemplate = document.getElementById("edit-del-buttons");
+const editContentDiv = document.getElementById("button-edit-div");
 
 //checks if journal list exists, returns empty array if no object
 let journalList = JSON.parse(localStorage.getItem("journalList")) || [];
@@ -13,7 +15,6 @@ let idCounter = localStorage.getItem("idCounter") || 0;
 
 //initial updateview call to populate blog list
 updateView();
-
 
 //saves data to journal list and id counter
 function saveData() {
@@ -30,6 +31,9 @@ function updateView() {
     //creates a clone of html template for blog layout
     const newEntry = journalEntryTemplate.content.cloneNode(true);
 
+    //edit and delete button node
+    let editDelButtons = editDelTemplate.content.cloneNode(true);
+
     //sets dataset item for card id
     newEntry.querySelector(".journal-entry").dataset.id = entry.id;
 
@@ -38,6 +42,7 @@ function updateView() {
     newEntry.querySelector(".journal-date").dateTime = entry.date;
     newEntry.querySelector(".journal-date").textContent = entry.date;
     newEntry.querySelector(".journal-text").innerText = entry.text;
+    newEntry.querySelector(".button-div").appendChild(editDelButtons);
 
     fragment.appendChild(newEntry);
   }
@@ -81,17 +86,47 @@ form.addEventListener("submit", (event) => {
 });
 
 journalContainer.addEventListener("click", (event) => {
+  let currentJournalEntry = event.target.closest("li");
+  let currentJournalEntryText =
+    currentJournalEntry.querySelector(".journal-text");
+
+  let journalEntryButtons = currentJournalEntry.querySelector(".button-div");
+
+  let currentJournalEntryId = currentJournalEntry.dataset.id;
+  let journalIndex = journalList.findIndex((entry) => entry.id == currentJournalEntryId);
+
+  //save and cancel buttons node
+  let editContentButtons = editContentDiv.content.cloneNode(true);
+
   //edit button
   if (event.target.classList.contains("edit-button")) {
-    //target current node
-    currentJournalEntry = event.target.closest("li");
-    currentJournalEntryText =
-      currentJournalEntry.querySelector(".journal-text");
-
+    //transforms the journal post into a text area
     let journalTextArea = document.createElement("textarea");
     journalTextArea.className = "journal-text";
-    journalTextArea.textContent = currentJournalEntryText.textContent;
-
+    journalTextArea.textContent = currentJournalEntryText.innerText;
     currentJournalEntryText.replaceWith(journalTextArea);
+
+    //transform buttons to save and cancel
+    journalEntryButtons.innerHTML = "";
+    journalEntryButtons.appendChild(editContentButtons);
+  }
+
+  //save button
+  if (event.target.classList.contains("save-button")) {
+    journalList[journalIndex].text = currentJournalEntryText.value;
+    saveData();
+    updateView();
+  }
+
+  //cancel button
+  if (event.target.classList.contains("cancel-button")) {
+    updateView();
+  }
+
+  //delete button
+  if (event.target.classList.contains("delete-button")) {
+    journalList= journalList.filter((entry) => entry.id != currentJournalEntryId);
+    saveData();
+    updateView();
   }
 });
