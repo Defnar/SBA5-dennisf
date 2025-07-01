@@ -83,8 +83,11 @@ form.addEventListener("submit", (event) => {
   journalList.push(newEntry);
   saveData();
   updateView();
+  form.reset();
 });
 
+
+//listens for button clicks on journals
 journalContainer.addEventListener("click", (event) => {
   let currentJournalEntry = event.target.closest("li");
   let currentJournalEntryText =
@@ -93,7 +96,9 @@ journalContainer.addEventListener("click", (event) => {
   let journalEntryButtons = currentJournalEntry.querySelector(".button-div");
 
   let currentJournalEntryId = currentJournalEntry.dataset.id;
-  let journalIndex = journalList.findIndex((entry) => entry.id == currentJournalEntryId);
+  let journalIndex = journalList.findIndex(
+    (entry) => entry.id == currentJournalEntryId
+  );
 
   //save and cancel buttons node
   let editContentButtons = editContentDiv.content.cloneNode(true);
@@ -125,7 +130,9 @@ journalContainer.addEventListener("click", (event) => {
 
   //delete button
   if (event.target.classList.contains("delete-button")) {
-    journalList= journalList.filter((entry) => entry.id != currentJournalEntryId);
+    journalList = journalList.filter(
+      (entry) => entry.id != currentJournalEntryId
+    );
     saveData();
     updateView();
   }

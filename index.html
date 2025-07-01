@@ -13,12 +13,12 @@
     </header>
     <form id="new-post-form" novalidate>
       <div class="input-section">
-        <label for="title">Title: </label>
+        <label for="title">Title</label>
         <input type="text" id="title" name="title" maxlength="25" required />
         <span id="title-error"></span>
       </div>
       <div class="input-section" id="journal-entry-section">
-        <label for="text">Journal Text: </label>
+        <label for="text">Journal Entry</label>
         <textarea
           id="text"
           name="text"
@@ -36,16 +36,14 @@
           <h2 class="journal-title"></h2>
           <time class="journal-date"></time>
           <p class="journal-text"></p>
-          <div class="button-div">
-          </div>
+          <div class="button-div"></div>
         </li>
       </template>
 
       <template id="edit-del-buttons">
-            <button class="edit-button">Edit</button>
-            <button class="delete-button">Delete</button>
+        <button class="edit-button">Edit</button>
+        <button class="delete-button">Delete</button>
       </template>
-
 
       <template id="button-edit-div">
         <button class="save-button">Save</button>

@@ -7,9 +7,25 @@
 }
 
 .journal-text {
-  field-sizing: content;
+    field-sizing: content;
 }
 
+#text {
+    min-width: 400px;
+    min-height: 200px;
+    field-sizing: content;
+    max-width: 80%;
+}
+
+.input-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#journal-entry-section {
+    field-sizing: content;
+}
 
 body {
   width: 100%;
