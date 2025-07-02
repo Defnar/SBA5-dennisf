@@ -89,6 +89,8 @@ form.addEventListener("submit", (event) => {
 
 //listens for button clicks on journals
 journalContainer.addEventListener("click", (event) => {
+
+  //variable declarations, grabs journal, entry text, entry title, button div, journal ID, and journal's index in the array
   let currentJournalEntry = event.target.closest("li");
   let currentJournalEntryText =
     currentJournalEntry.querySelector(".journal-text");
