@@ -7,12 +7,16 @@
 }
 
 #title {
-    width: 100%;
+    width: 200px;
+    margin: auto;
     text-align: center;
 }
 
 .journal-text {
   field-sizing: content;
+  min-width: 50%;
+  min-height: 100px;
+  max-width: 80%;
 }
 
 #text {
@@ -39,6 +43,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.journal-title {
+    text-align: center;
 }
 
 .error {

@@ -25,6 +25,7 @@
           required
           placeholder="today I..."
           minlength="50"
+          maxlength="1000"
         ></textarea>
         <span id="text-error" class="error"></span>
       </div>
@@ -35,8 +36,10 @@
       <template id="journal-entry">
         <li class="journal-entry">
           <h2 class="journal-title"></h2>
+          <span class="error journal-title-error"></span>
           <time class="journal-date"></time>
           <p class="journal-text"></p>
+          <span class="error journal-text-error"></span>
           <div class="button-div"></div>
         </li>
       </template>

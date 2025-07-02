@@ -1,7 +1,7 @@
 const journalTitle = document.getElementById("title");
 const journalTitleError = document.getElementById("title-error");
 const journalText = document.getElementById("text");
-const journalTextError = document.getElementById("text-error")
+const journalTextError = document.getElementById("text-error");
 const form = document.getElementById("new-post-form");
 const journalContainer = document.getElementById("journal-container");
 const journalEntryTemplate = document.getElementById("journal-entry");
@@ -87,12 +87,14 @@ form.addEventListener("submit", (event) => {
   form.reset();
 });
 
-
 //listens for button clicks on journals
 journalContainer.addEventListener("click", (event) => {
   let currentJournalEntry = event.target.closest("li");
   let currentJournalEntryText =
     currentJournalEntry.querySelector(".journal-text");
+
+  let currentJournalEntryTitle =
+    currentJournalEntry.querySelector(".journal-title");
 
   let journalEntryButtons = currentJournalEntry.querySelector(".button-div");
 
@@ -106,11 +108,48 @@ journalContainer.addEventListener("click", (event) => {
 
   //edit button
   if (event.target.classList.contains("edit-button")) {
+    //transform the journal title into a text input
+    let journalTitleInput = document.createElement("input");
+    journalTitleInput.className = "journal-title";
+    journalTitleInput.type = "text";
+    journalTitleInput.minLength = 8;
+    journalTitleInput.maxLength = 25;
+    journalTitleInput.required = true;
+    journalTitleInput.value = currentJournalEntryTitle.innerText;
+    currentJournalEntryTitle.replaceWith(journalTitleInput);
+
+    //blur event for title input
+    journalTitleInput.addEventListener("blur", (event) => {
+      let titleErrorSpan = currentJournalEntry.querySelector(
+        ".journal-title-error"
+      );
+      if (journalTitleInput.validity.valueMissing) {
+        journalTitleInput.setCustomValidity("Title cannot be blank");
+      } else journalTitleInput.setCustomValidity("");
+      titleErrorSpan.textContent = journalTitleInput.validationMessage;
+    });
+
     //transforms the journal post into a text area
     let journalTextArea = document.createElement("textarea");
     journalTextArea.className = "journal-text";
-    journalTextArea.textContent = currentJournalEntryText.innerText;
+    journalTextArea.minLength = 50;
+    journalTextArea.maxLength = 1000;
+    journalTextArea.required = true;
+    journalTextArea.value = currentJournalEntryText.innerText;
     currentJournalEntryText.replaceWith(journalTextArea);
+
+    //blur event for journal entry input
+    journalTextArea.addEventListener("blur", (event) => {
+      let journalErrorSpan = currentJournalEntry.querySelector(
+        ".journal-text-error"
+      );
+      if (journalTextArea.validity.valueMissing) {
+        journalTextArea.setCustomValidity("Text cannot be blank");
+      } else {
+        journalTextArea.setCustomValidity("");
+      }
+      journalErrorSpan.textContent = journalTextArea.validationMessage;
+    });
 
     //transform buttons to save and cancel
     journalEntryButtons.innerHTML = "";
@@ -119,9 +158,15 @@ journalContainer.addEventListener("click", (event) => {
 
   //save button
   if (event.target.classList.contains("save-button")) {
-    journalList[journalIndex].text = currentJournalEntryText.value;
-    saveData();
-    updateView();
+    if (
+      validityCheck(currentJournalEntryTitle) &&
+      validityCheck(currentJournalEntryText)
+    ) {
+      journalList[journalIndex].title = currentJournalEntryTitle.value;
+      journalList[journalIndex].text = currentJournalEntryText.value;
+      saveData();
+      updateView();
+    }
   }
 
   //cancel button
@@ -140,18 +185,16 @@ journalContainer.addEventListener("click", (event) => {
 });
 
 //blur events to check for proper inputs
-journalTitle.addEventListener("blur", (event)=> {
+journalTitle.addEventListener("blur", (event) => {
   if (journalTitle.validity.valueMissing) {
-    journalTitle.validationMessage = "Title cannot be blank";
-  }
-  else journalTitle.validationMessage = "";
+    journalTitle.setCustomValidity("Title cannot be blank");
+  } else journalTitle.setCustomValidity("");
   journalTitleError.textContent = journalTitle.validationMessage;
-})
+});
 
-journalText.addEventListener("blur", (event) =>{
+journalText.addEventListener("blur", (event) => {
   if (journalText.validity.valueMissing) {
-    journalText.validationMessage = "Entry cannot be blank";
-  }
-  else journalText.validationMessage = "";
+    journalText.setCustomValidity("Entry cannot be blank");
+  } else journalText.setCustomValidity("");
   journalTextError.textContent = journalText.validationMessage;
-})
+});
