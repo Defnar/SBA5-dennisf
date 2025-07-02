@@ -1,5 +1,7 @@
 const journalTitle = document.getElementById("title");
+const journalTitleError = document.getElementById("title-error");
 const journalText = document.getElementById("text");
+const journalTextError = document.getElementById("text-error")
 const form = document.getElementById("new-post-form");
 const journalContainer = document.getElementById("journal-container");
 const journalEntryTemplate = document.getElementById("journal-entry");
@@ -136,3 +138,20 @@ journalContainer.addEventListener("click", (event) => {
     updateView();
   }
 });
+
+//blur events to check for proper inputs
+journalTitle.addEventListener("blur", (event)=> {
+  if (journalTitle.validity.valueMissing) {
+    journalTitle.validationMessage = "Title cannot be blank";
+  }
+  else journalTitle.validationMessage = "";
+  journalTitleError.textContent = journalTitle.validationMessage;
+})
+
+journalText.addEventListener("blur", (event) =>{
+  if (journalText.validity.valueMissing) {
+    journalText.validationMessage = "Entry cannot be blank";
+  }
+  else journalText.validationMessage = "";
+  journalTextError.textContent = journalText.validationMessage;
+})
