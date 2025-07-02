@@ -24,7 +24,7 @@ function saveData() {
   localStorage.setItem("idCounter", idCounter);
 }
 
-//updates journal section based on joural list
+//updates journal section based on journal list
 function updateView() {
   let fragment = new DocumentFragment();
 
@@ -118,7 +118,7 @@ journalContainer.addEventListener("click", (event) => {
     journalTitleInput.value = currentJournalEntryTitle.innerText;
     currentJournalEntryTitle.replaceWith(journalTitleInput);
 
-    //blur event for title input
+    //blur event for title input for validation
     journalTitleInput.addEventListener("blur", (event) => {
       let titleErrorSpan = currentJournalEntry.querySelector(
         ".journal-title-error"
@@ -138,7 +138,7 @@ journalContainer.addEventListener("click", (event) => {
     journalTextArea.value = currentJournalEntryText.innerText;
     currentJournalEntryText.replaceWith(journalTextArea);
 
-    //blur event for journal entry input
+    //blur event for journal entry input for validation
     journalTextArea.addEventListener("blur", (event) => {
       let journalErrorSpan = currentJournalEntry.querySelector(
         ".journal-text-error"
@@ -184,7 +184,7 @@ journalContainer.addEventListener("click", (event) => {
   }
 });
 
-//blur events to check for proper inputs
+//blur events to check for proper inputs for the form
 journalTitle.addEventListener("blur", (event) => {
   if (journalTitle.validity.valueMissing) {
     journalTitle.setCustomValidity("Title cannot be blank");
