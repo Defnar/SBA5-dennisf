@@ -22,8 +22,8 @@
 #text {
   min-width: 400px;
   min-height: 200px;
-  field-sizing: content;
   max-width: 80%;
+  margin-bottom: 10px;
 }
 
 .input-section {
@@ -47,6 +47,10 @@ body {
 
 .journal-title {
     text-align: center;
+}
+
+#journal-container {
+  width: 80%;
 }
 
 .error {
