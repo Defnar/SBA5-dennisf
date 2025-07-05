@@ -53,7 +53,7 @@ function updateView() {
   journalContainer.appendChild(fragment);
 }
 
-//simple validity checker that focuses the first invalid object
+//simple validity checker that focuses the object if not valid
 function validityCheck(object) {
   if (!object.validity.valid) {
     alert(`${object.name} must be a valid entry`);
