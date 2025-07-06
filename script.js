@@ -63,6 +63,15 @@ function validityCheck(object) {
   return true;
 }
 
+//object constructor for new journal entry
+class NewEntry {
+  constructor(title, date, text, id) {
+    this.title = title;
+    this.date = date;
+    this.text = text;
+    this.id = id;
+  }
+}
 //helper function for creating journal title element
 function createJournalTitle(title) {
   let newTitle = document.createElement("h2");
@@ -88,16 +97,8 @@ form.addEventListener("submit", (event) => {
     return;
   }
 
-  //constructs a new journal object and pushes it to journal list
-  let newEntry = {
-    title: journalTitle.value,
-    date: new Date().toLocaleDateString(),
-    text: journalText.value,
-    id: idCounter,
-  };
-
   idCounter++;
-  journalList.push(newEntry);
+  journalList.push(NewEntry(journalTitle.value, new Date().toLocaleDateString(), journalText.value, idCounter));
   saveData();
   updateView();
   form.reset();
