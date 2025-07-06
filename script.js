@@ -72,6 +72,9 @@ class NewEntry {
     this.id = id;
   }
 }
+
+
+
 //helper function for creating journal title element
 function createJournalTitle(title) {
   let newTitle = document.createElement("h2");
@@ -196,6 +199,7 @@ journalContainer.addEventListener("click", (event) => {
         createJournalText(currentJournalEntryText.value)
       );
 
+      //replaces buttons back to default
       journalEntryButtons.innerHTML = "";
       journalEntryButtons.appendChild(editDelTemplate.content.cloneNode(true));
     }
@@ -209,6 +213,8 @@ journalContainer.addEventListener("click", (event) => {
     let currentJournalEntryTitle =
       currentJournalEntry.querySelector(".journal-title");
 
+
+      //changes content back to normal
     currentJournalEntryTitle.replaceWith(
       createJournalTitle(journalList[journalIndex].title)
     );
@@ -216,6 +222,7 @@ journalContainer.addEventListener("click", (event) => {
       createJournalText(journalList[journalIndex].text)
     );
 
+    //replace buttons back to default
     journalEntryButtons.innerHTML = "";
     journalEntryButtons.appendChild(editDelTemplate.content.cloneNode(true));
   }
