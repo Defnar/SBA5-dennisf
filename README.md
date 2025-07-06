@@ -8,7 +8,7 @@ Any known issues or features not implemented.
 # Answers to Readme
 ## 1. Instructions and description
 - type in a title and journal entry, and then press post
-- to edit a post, press edit -> change your content -> press save.  Press cancel to reset everything to normal view
+- to edit a post, press edit -> change your content -> press save.  Press cancel to reset the post to normal view.
 
 ## 2. Reflection
 - the first part of development was having a basic design (keeping it basic as possible to focus primarily on dom manipulation as wanted by the assignment) in mind with how each part would function.  My idea was to have a post area below the form, where pressing edit would change the buttons and swap the title and content areas into text fields for editting.
@@ -20,9 +20,11 @@ Any known issues or features not implemented.
 - The biggest headache I had with trying to pull information out was that trying to clone or pull children out of a template would return errors or null.  After doing some console logs, I realized that template was not returning children, but document fragments, which I found the solution to be along the lines of template.contents.cloneNode(true).  After figuring this out, I could easily use query selectors to go through the element created using template cloning to fill out what I needed for each blog post.
 
 ## reflection continued
-- The next difficulty i had was swapping the buttons.  I tried various methods before settling to assigning each set of buttons to a separate template, deepcloning their templates and applying them as needed.  The edit/delete buttons are implemented on updateview function when each blog post is created from the array list holding the journal posts.  When edit is pressed, those buttons are replaced with save and cancel buttons.  Save saves changes to the journal entry list, and then updates the view.  Cancel just updates the view.  Getting these buttons to work and validating edit fields was done via attaching an event listener to the object being editted when edit is pressed.
+- The next difficulty i had was swapping the buttons.  I tried various methods before settling to assigning each set of buttons to a separate template, deepcloning their templates and applying them as needed.  The edit/delete buttons are implemented on updateview function when each blog post is created from the array list holding the journal posts.  When edit is pressed, those buttons are replaced with save and cancel buttons.  Originally, the cancel and save button just ran the function to refresh view, but I've changed them now to dynamically change the journal post you're editting without refreshing or touching any other content on the page. 
 
 ## Known issues or features not implemented
 - I'm aware of sizing issues with certain actions, the post button not well styled and moves around a little.  This is due to less focus on looks and more on functionality.  I find I enjoy working with logic more than looks and functional looks.
+  - I fixed the resizing issues, this is no longer an issue 
 - I would like to change it so that hitting edit on one post cancels editting on another post, but for what I know right now that seems like a lot of work.
 - I could do more logic to run replacewiths again to swap back to normal look on posts instead of just running updateView() when cancel is used, but it seems unnecessary for this.  just keep it simple.
+    -I did this, keeping it here as with other one for personal notes and clarity.
