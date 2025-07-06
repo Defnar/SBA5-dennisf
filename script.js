@@ -144,8 +144,6 @@ journalContainer.addEventListener("click", (event) => {
     });
 
     //transforms the journal post into a text area
-
-    let editContentButtons = saveCancelTemplate.content.cloneNode(true);
     let journalTextArea = document.createElement("textarea");
     journalTextArea.className = "journal-text";
     journalTextArea.minLength = 50;
@@ -168,14 +166,13 @@ journalContainer.addEventListener("click", (event) => {
     });
 
     //transform buttons to save and cancel
+
     journalEntryButtons.innerHTML = "";
-    journalEntryButtons.appendChild(editContentButtons);
+    journalEntryButtons.appendChild(saveCancelTemplate.content.cloneNode(true));
   }
 
   //save button
   if (event.target.classList.contains("save-button")) {
-    let defaultContentButtons = editDelTemplate.content.cloneNode(true);
-
     let currentJournalEntryText =
       currentJournalEntry.querySelector(".journal-text");
 
@@ -199,12 +196,11 @@ journalContainer.addEventListener("click", (event) => {
       );
 
       journalEntryButtons.innerHTML = "";
-      journalEntryButtons.appendChild(defaultContentButtons);
+      journalEntryButtons.appendChild(editDelTemplate.content.cloneNode(true));
     }
   }
 
   //cancel button
-  let defaultContentButtons = editDelTemplate.content.cloneNode(true);
   if (event.target.classList.contains("cancel-button")) {
     let currentJournalEntryText =
       currentJournalEntry.querySelector(".journal-text");
@@ -220,7 +216,7 @@ journalContainer.addEventListener("click", (event) => {
     );
 
     journalEntryButtons.innerHTML = "";
-    journalEntryButtons.appendChild(defaultContentButtons);
+    journalEntryButtons.appendChild(editDelTemplate.content.cloneNode(true));
   }
 
   //delete button
