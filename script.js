@@ -6,7 +6,7 @@ const form = document.getElementById("new-post-form");
 const journalContainer = document.getElementById("journal-container");
 const journalEntryTemplate = document.getElementById("journal-entry");
 const editDelTemplate = document.getElementById("edit-del-buttons");
-const editContentDiv = document.getElementById("button-edit-div");
+const saveCancelTemplate = document.getElementById("save-cancel-buttons");
 
 //checks if journal list exists, returns empty array if no object
 let journalList = JSON.parse(localStorage.getItem("journalList")) || [];
@@ -63,6 +63,22 @@ function validityCheck(object) {
   return true;
 }
 
+//helper function for creating journal title element
+function createJournalTitle(title) {
+  let newTitle = document.createElement("h2");
+  newTitle.className = "journal-title";
+  newTitle.textContent = title;
+  return newTitle;
+}
+
+//helper function for creating blog text element
+function createJournalText(text) {
+  let newText = document.createElement("p");
+  newText.className = "journal-text";
+  newText.innerText = text;
+  return newText;
+}
+
 //EVENT LISTENERS//
 //event listener for form, checks validity of items and submits
 form.addEventListener("submit", (event) => {
@@ -89,14 +105,8 @@ form.addEventListener("submit", (event) => {
 
 //listens for button clicks on journals
 journalContainer.addEventListener("click", (event) => {
-
   //variable declarations, grabs journal, entry text, entry title, button div, journal ID, and journal's index in the array
   let currentJournalEntry = event.target.closest("li");
-  let currentJournalEntryText =
-    currentJournalEntry.querySelector(".journal-text");
-
-  let currentJournalEntryTitle =
-    currentJournalEntry.querySelector(".journal-title");
 
   let journalEntryButtons = currentJournalEntry.querySelector(".button-div");
 
@@ -105,11 +115,13 @@ journalContainer.addEventListener("click", (event) => {
     (entry) => entry.id == currentJournalEntryId
   );
 
-  //save and cancel buttons node
-  let editContentButtons = editContentDiv.content.cloneNode(true);
-
   //edit button
   if (event.target.classList.contains("edit-button")) {
+    let currentJournalEntryText =
+      currentJournalEntry.querySelector(".journal-text");
+
+    let currentJournalEntryTitle =
+      currentJournalEntry.querySelector(".journal-title");
     //transform the journal title into a text input
     let journalTitleInput = document.createElement("input");
     journalTitleInput.className = "journal-title";
@@ -132,6 +144,8 @@ journalContainer.addEventListener("click", (event) => {
     });
 
     //transforms the journal post into a text area
+
+    let editContentButtons = saveCancelTemplate.content.cloneNode(true);
     let journalTextArea = document.createElement("textarea");
     journalTextArea.className = "journal-text";
     journalTextArea.minLength = 50;
@@ -160,20 +174,53 @@ journalContainer.addEventListener("click", (event) => {
 
   //save button
   if (event.target.classList.contains("save-button")) {
+    let defaultContentButtons = editDelTemplate.content.cloneNode(true);
+
+    let currentJournalEntryText =
+      currentJournalEntry.querySelector(".journal-text");
+
+    let currentJournalEntryTitle =
+      currentJournalEntry.querySelector(".journal-title");
     if (
       validityCheck(currentJournalEntryTitle) &&
       validityCheck(currentJournalEntryText)
     ) {
+      //updates journal list
       journalList[journalIndex].title = currentJournalEntryTitle.value;
       journalList[journalIndex].text = currentJournalEntryText.value;
       saveData();
-      updateView();
+
+      //replaces title and entry with new values
+      currentJournalEntryTitle.replaceWith(
+        createJournalTitle(currentJournalEntryTitle.value)
+      );
+      currentJournalEntryText.replaceWith(
+        createJournalText(currentJournalEntryText.value)
+      );
+
+      journalEntryButtons.innerHTML = "";
+      journalEntryButtons.appendChild(defaultContentButtons);
     }
   }
 
   //cancel button
+  let defaultContentButtons = editDelTemplate.content.cloneNode(true);
   if (event.target.classList.contains("cancel-button")) {
-    updateView();
+    let currentJournalEntryText =
+      currentJournalEntry.querySelector(".journal-text");
+
+    let currentJournalEntryTitle =
+      currentJournalEntry.querySelector(".journal-title");
+
+    currentJournalEntryTitle.replaceWith(
+      createJournalTitle(journalList[journalIndex].title)
+    );
+    currentJournalEntryText.replaceWith(
+      createJournalText(journalList[journalIndex].text)
+    );
+
+    journalEntryButtons.innerHTML = "";
+    journalEntryButtons.appendChild(defaultContentButtons);
   }
 
   //delete button
