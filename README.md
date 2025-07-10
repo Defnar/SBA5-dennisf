@@ -29,4 +29,4 @@ Any known issues or features not implemented.
   - I fixed the resizing issues, this is no longer an issue 
 - I would like to change it so that hitting edit on one post cancels editting on another post, but for what I know right now that seems like a lot of work.
 - I could do more logic to run replacewiths again to swap back to normal look on posts instead of just running updateView() when cancel is used, but it seems unnecessary for this.  just keep it simple.
-    -I did this, keeping it here as with other one for personal notes and clarity.
+    - I did this, keeping it here as with other one for personal notes and clarity.
