@@ -101,7 +101,7 @@ form.addEventListener("submit", (event) => {
   }
 
   idCounter++;
-  journalList.push(NewEntry(journalTitle.value, new Date().toLocaleDateString(), journalText.value, idCounter));
+  journalList.push(new NewEntry(journalTitle.value, new Date().toLocaleDateString(), journalText.value, idCounter));
   saveData();
   updateView();
   form.reset();
